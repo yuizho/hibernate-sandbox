@@ -17,6 +17,8 @@ $ docker run \
 
 ## Table Data
 
+![ER.png](ER.png)
+
 ```sql
 USE
 test;
