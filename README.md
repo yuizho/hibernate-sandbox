@@ -19,6 +19,10 @@ $ docker run \
 
 ![ER.png](ER.png)
 
+These tables will be created by "spring.jpa.hibernate.ddl-auto" feature of spring-jpa when test codes are executed.
+
+That's why you don't need to the following queries manually.
+
 ```sql
 DROP TABLE IF EXISTS product;
 CREATE TABLE product
