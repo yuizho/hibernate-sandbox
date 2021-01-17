@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,6 +28,8 @@ public class ProductRepositoryTests {
         // configure db-raccoon extension
         dbRaccoonExtension = new DbRaccoonExtension.Builder(dataSource)
                 .cleanupPhase(CleanupPhase.BEFORE_TEST)
+                .setUpQueries(List.of("SET FOREIGN_KEY_CHECKS = 0"))
+                .tearDownQueries(List.of("SET FOREIGN_KEY_CHECKS = 1"))
                 .build();
         // configure test target objects
         this.productRepository = productRepository;

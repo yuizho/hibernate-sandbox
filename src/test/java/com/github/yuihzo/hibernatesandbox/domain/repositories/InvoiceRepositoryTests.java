@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,6 +28,8 @@ public class InvoiceRepositoryTests {
         // configure db-raccoon extension
         dbRaccoonExtension = new DbRaccoonExtension.Builder(dataSource)
                 .cleanupPhase(CleanupPhase.BEFORE_TEST)
+                .setUpQueries(List.of("SET FOREIGN_KEY_CHECKS = 0"))
+                .tearDownQueries(List.of("SET FOREIGN_KEY_CHECKS = 1"))
                 .build();
         // configure test target objects
         this.invoiceRepository = invoiceRepository;
@@ -40,11 +43,13 @@ public class InvoiceRepositoryTests {
             }, id = "id"),
             @CsvTable(name = "product", rows = {
                     "id, name,   value, created",
-                    "1,  coffee, 200,   2018-03-13 00:45:00"
+                    "1,  coffee, 200,   2018-03-13 00:45:00",
+                    "2,  tea   , 100,   2018-03-13 00:45:00"
             }, id = "id"),
             @CsvTable(name = "invoice_detail", rows = {
                     "id, invoice_id, product_id, quantity, created",
-                    "1,  1,          1,          1,        2018-03-13 00:45:00"
+                    "1,  1,          1,          1,        2018-03-13 00:45:00",
+                    "2,  1,          2,          1,        2018-03-13 00:45:00"
             }, id = "id"),
     })
     public void findAllでInvoiceが取得できる() {
@@ -54,7 +59,7 @@ public class InvoiceRepositoryTests {
         assertThat(actual)
                 .flatExtracting(Invoice::getInvoiceDetails)
                 .flatExtracting(InvoiceDetail::getId)
-                .containsExactly(1);
+                .containsExactly(1, 2);
     }
 
     @Test
