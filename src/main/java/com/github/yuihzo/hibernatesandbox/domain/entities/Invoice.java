@@ -17,7 +17,7 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "id")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "invoice")
     @OrderBy(value = "id ASC")
     private List<InvoiceDetail> invoiceDetails;
 
