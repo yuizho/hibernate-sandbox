@@ -20,9 +20,6 @@ $ docker run \
 ![ER.png](ER.png)
 
 ```sql
-USE
-test;
-
 DROP TABLE IF EXISTS product;
 CREATE TABLE product
 (
