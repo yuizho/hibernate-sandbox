@@ -35,9 +35,9 @@ public class ProductRepositoryTests {
     @Test
     @CsvDataSet(testData = {
             @CsvTable(name = "product", rows = {
-                    "id,   name,     division, created",
-                    "9999, productA, 1       , 2018-03-13 00:45:00",
-                    "9998, productB, 1       , 2018-03-13 00:45:01"
+                    "id, name,   value, created",
+                    "1,  coffee, 200,   2018-03-13 00:45:00",
+                    "2,  tea,    150,   2018-03-13 00:45:01"
             }, id = "id")
     })
     public void findByDescで降順にProductが取得できる() {
@@ -46,16 +46,18 @@ public class ProductRepositoryTests {
         // then
         assertThat(actual).containsExactly(
                 new Product(
-                        9998,
-                        1,
-                        LocalDateTime.of(2018, 3, 13, 0, 45, 1),
-                        "productB"
+                        2,
+                        "tea",
+                        150,
+                        LocalDateTime.of(2018, 3, 13, 0, 45, 1)
+
                 ),
                 new Product(
-                        9999,
                         1,
-                        LocalDateTime.of(2018, 3, 13, 0, 45, 0),
-                        "productA"
+                        "coffee",
+                        200,
+                        LocalDateTime.of(2018, 3, 13, 0, 45, 0)
+
                 )
         );
     }

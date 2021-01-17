@@ -17,14 +17,14 @@ import java.time.LocalDateTime;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    private Integer division;
-    private LocalDateTime created;
+    private int id;
     private String name;
+    private int value;
+    private LocalDateTime created;
 
-    public Product(int division, LocalDateTime created, String name) {
-        this.division = division;
+    public Product(String name, int value, LocalDateTime created) {
         this.created = created;
         this.name = name;
+        this.value = value;
     }
 }
