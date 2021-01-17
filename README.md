@@ -9,7 +9,7 @@ $ docker run \
   -e MYSQL_PASSWORD=password \
   -e MYSQL_DATABASE=test \
   -e TZ=Asia/Tokyo \
-  -p 3306:3306 \
+  -p 127.0.0.1:3306:3306 \
   --name mysql_sandbox \
   -d mysql:5.7 \
   --character-set-server=utf8
